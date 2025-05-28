@@ -7,6 +7,8 @@ import sys
 from datetime import datetime, timezone
 import time
 import serial
+import json
+import os
 
 usb = "COM9"
 
@@ -35,8 +37,11 @@ if __name__ == '__main__':
     # Opening COM port and connecting to broker
     comPort = parser.UARTParser("DoubleCOMPort")
     comPort.connectDataComPort(usb)
-    # reset(read_T, comPort)
-
+    
+    # Initialize JSON logging
+    log_file = 'radar_readings.json'
+    readings = []
+    
     # Start loop for alarming
     i = 0
     while(True):
@@ -48,6 +53,22 @@ if __name__ == '__main__':
             # Checking if is there any people detected
             x = 'numDetectedTracks' in reading
             y+=1
+            
+            # Log the reading with timestamp
+            timestamp = datetime.now(timezone.utc).isoformat()
+            reading_with_timestamp = {
+                'timestamp': timestamp,
+                'reading': reading
+            }
+            readings.append(reading_with_timestamp)
+            
+            # Write to JSON file
+            try:
+                with open(log_file, 'w') as f:
+                    json.dump(readings, f, indent=4)
+            except Exception as e:
+                print(f"Error writing to JSON file: {e}")
+            
             print(reading)
 
             # # Counting detections i and reset radar

@@ -630,7 +630,7 @@ class Core:
         # Initialize 1D plot values based on cfg file
         with suppress(AttributeError):
             self.demoClassDict[self.demo].setRangeValues()
-
+    #IMPORTANTE
     def selectCfg(self, filename):
         try:
             file = self.selectFile(filename)
@@ -645,7 +645,7 @@ class Core:
         log.debug("Demo Changed to " + self.demo)
         if self.demo == DEMO_CALIBRATION:
             self.demoClassDict[self.demo].checkCalibrationParams()
-
+    #IMPORTANTE
     def sendCfg(self):
         try:
             if self.demo != "Replay":
