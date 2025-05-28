@@ -1,0 +1,4 @@
+paho-mqtt
+pyserial
+json_fix == 1.0.0
+numpy == 2.2.4

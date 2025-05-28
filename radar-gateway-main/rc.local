@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sudo chmod 777 /dev/ttyUSB*
+bash /home/rasp-29dc8b/radar-gateway/init.sh &
+
+exit 0
